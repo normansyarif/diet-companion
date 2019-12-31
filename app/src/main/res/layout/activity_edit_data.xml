@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".EditDataActivity">
+
+    <RelativeLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Developed by Norman Syarif to help him lose some weight, which seems very impossible apparently."
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:gravity="top"
+                android:textSize="13sp"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                android:hint="Dates"
+                android:id="@+id/dates"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <EditText
+                android:gravity="top"
+                android:textSize="13sp"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                android:hint="DATA"
+                android:id="@+id/data"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:onClick="onSaveClicked"
+                    android:textColor="#fff"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="SAVE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:onClick="onClearClicked"
+                    android:text="CLEAR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

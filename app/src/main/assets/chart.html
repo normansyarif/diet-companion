@@ -1,0 +1,94 @@
+<html>
+<head>
+    <link rel="stylesheet" href="chart.css">
+    <script src="jquery.js"></script>
+    <script src="chart.js"></script>
+
+    <style>
+        #lost {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        #yesterday {
+        	text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <canvas id="myChart" width="400" height="300" style="margin-top: 30px"></canvas>
+    <p id="lost"></p>
+    <p id="yesterday"></p>
+</div>
+
+<script type="text/javascript">
+    var dates = Android.getDates();
+    var data = Android.getData();
+
+    var dataArr = eval('(' + data + ')');
+
+    if(dataArr.length >= 2) {
+    	var first = parseFloat(dataArr[0]);
+    	var last = parseFloat(dataArr[dataArr.length - 1]);
+    	if(first > last) {
+    		var diff = parseFloat(first - last);
+    		$('#lost').html('You have lost ' + diff.toFixed(1) + ' kg overall');
+    		$('#lost').css('color', "#4CAF50");
+    	}else{
+    		var diff = last - first;
+    		$('#lost').html('You have gained ' + diff.toFixed(1) + ' kg overall');
+    		$('#lost').css('color', "#f44336");
+    	}
+    }else if(dataArr.length >= 1) {
+    	$('#lost').html('You are ' + parseFloat(dataArr[0]).toFixed(1) + ' kg');
+    }else{
+    	$('#lost').remove();
+    }
+
+    if(dataArr.length >= 2) {
+    	var secondToLast = parseFloat(dataArr[dataArr.length - 2]);
+    	var last = parseFloat(dataArr[dataArr.length - 1]);
+    	if(secondToLast > last) {
+    		var diff = parseFloat(secondToLast - last);
+    		$('#yesterday').html('You are ' + diff.toFixed(1) + ' kg lighter than yesterday');
+    		$('#yesterday').css('color', "#4CAF50");
+    	}else{
+    		var diff = last - secondToLast;
+    		$('#yesterday').html('You are ' + diff.toFixed(1) + ' kg heavier than yesterday');
+    		$('#yesterday').css('color', "#f44336");
+    	}
+    }else{
+    	$('#yesterday').remove();
+    }
+
+    var ctx = $('#myChart');
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: eval('(' + dates + ')'),
+            datasets: [{
+                borderColor: "#3cba9f",
+                data: eval('(' + data + ')'),
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+    			display: false,
+			}
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<TaskerData sr="" dvi="1" tv="5.9">
+	<Task sr="task4">
+		<cdate>1577713784337</cdate>
+		<edate>1577814837459</edate>
+		<id>4</id>
+		<nme>Breakfast</nme>
+		<pri>100</pri>
+		<Action sr="act0" ve="7">
+			<code>779</code>
+			<Str sr="arg0" ve="3">Fasting Time</Str>
+			<Int sr="arg1" val="0"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>523</code>
+			<Str sr="arg0" ve="3">Breakfast Time</Str>
+			<Str sr="arg1" ve="3">You can eat until 7:30 PM</Str>
+			<Str sr="arg10" ve="3"/>
+			<Str sr="arg11" ve="3"/>
+			<Img sr="arg2" ve="2">
+				<nme>mw_av_play_arrow</nme>
+			</Img>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="1"/>
+			<Int sr="arg5" val="1"/>
+			<Int sr="arg6" val="0"/>
+			<Int sr="arg7" val="8"/>
+			<Int sr="arg8" val="0"/>
+			<Str sr="arg9" ve="3">Ringtones/notif.mp3</Str>
+			<ListElementItem sr="item0">
+				<label>Open App</label>
+				<Action sr="action" ve="7">
+					<code>20</code>
+					<App sr="arg0">
+						<appClass>normansyarif.github.io.bmiforindonesians.MainActivity</appClass>
+						<appPkg>normansyarif.github.io.bmiforindonesians</appPkg>
+						<label>BMI Calc for Indonesians</label>
+					</App>
+					<Str sr="arg1" ve="3"/>
+					<Int sr="arg2" val="0"/>
+					<Int sr="arg3" val="0"/>
+				</Action>
+			</ListElementItem>
+		</Action>
+	</Task>
+</TaskerData>
