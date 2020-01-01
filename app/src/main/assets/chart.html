@@ -5,67 +5,83 @@
     <script src="chart.js"></script>
 
     <style>
-        #lost {
-            margin-top: 50px;
-            text-align: center;
+    	#now {
+    		margin-top: 50px;
+    	}
+        #overall, #now{
             font-size: 1.5em;
         }
-        #yesterday {
+        #yesterday, #overall, #now {
         	text-align: center;
+        }
+        canvas {
+        	margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
 <div class="content">
-    <canvas id="myChart" width="400" height="300" style="margin-top: 30px"></canvas>
-    <p id="lost"></p>
+    <canvas id="myChart" width="400" height="300"></canvas>
+    <p id="now"></p>
+    <p id="overall"></p>
     <p id="yesterday"></p>
 </div>
 
 <script type="text/javascript">
-    var dates = Android.getDates();
-    var data = Android.getData();
+    let dates = Android.getDates();
+    let data = Android.getData();
 
-    var dataArr = eval('(' + data + ')');
+    let dataArr = eval('(' + data + ')');
 
+    // Calculate and parse overall progress
     if(dataArr.length >= 2) {
-    	var first = parseFloat(dataArr[0]);
-    	var last = parseFloat(dataArr[dataArr.length - 1]);
+    	let first = parseFloat(dataArr[0]);
+    	let last = parseFloat(dataArr[dataArr.length - 1]);
+    	
+    	$('#now').html(parseFloat(last.toFixed(1)) + ' kg');
+
     	if(first > last) {
-    		var diff = parseFloat(first - last);
-    		$('#lost').html('You have lost ' + diff.toFixed(1) + ' kg overall');
-    		$('#lost').css('color', "#4CAF50");
+    		let diff = parseFloat(first - last);
+    		$('#overall').html('You have lost ' + parseFloat(diff.toFixed(1)) + ' kg overall');
+    		$('#overall').css('color', "#4CAF50");
+    	}else if(first < last){
+    		let diff = last - first;
+    		$('#overall').html('You have gained ' + parseFloat(diff.toFixed(1)) + ' kg overall');
+    		$('#overall').css('color', "#f44336");
     	}else{
-    		var diff = last - first;
-    		$('#lost').html('You have gained ' + diff.toFixed(1) + ' kg overall');
-    		$('#lost').css('color', "#f44336");
+    		$('#overall').html('You do\'t have any improvement');
     	}
     }else if(dataArr.length >= 1) {
-    	$('#lost').html('You are ' + parseFloat(dataArr[0]).toFixed(1) + ' kg');
+    	$('#overall').html('You are ' + parseFloat(dataArr[0].toFixed(1)) + ' kg');
+    	$('#now').remove();
     }else{
-    	$('#lost').remove();
+    	$('#overall').remove();
+    	$('#now').remove();
     }
 
+    // Compare and calculate the current value and the previous value
     if(dataArr.length >= 2) {
-    	var secondToLast = parseFloat(dataArr[dataArr.length - 2]);
-    	var last = parseFloat(dataArr[dataArr.length - 1]);
+    	let secondToLast = parseFloat(dataArr[dataArr.length - 2]);
+    	let last = parseFloat(dataArr[dataArr.length - 1]);
     	if(secondToLast > last) {
-    		var diff = parseFloat(secondToLast - last);
-    		$('#yesterday').html('You are ' + diff.toFixed(1) + ' kg lighter than yesterday');
+    		let diff = parseFloat(secondToLast - last);
+    		$('#yesterday').html('You are ' + parseFloat(diff.toFixed(1)) + ' kg lighter than yesterday');
     		$('#yesterday').css('color', "#4CAF50");
-    	}else{
-    		var diff = last - secondToLast;
-    		$('#yesterday').html('You are ' + diff.toFixed(1) + ' kg heavier than yesterday');
+    	}else if(secondToLast < last){
+    		let diff = last - secondToLast;
+    		$('#yesterday').html('You are ' + parseFloat(diff.toFixed(1)) + ' kg heavier than yesterday');
     		$('#yesterday').css('color', "#f44336");
+    	}else{
+    		$('#yesterday').html('You are the same weight as you were yesterday');
     	}
     }else{
     	$('#yesterday').remove();
     }
 
-    var ctx = $('#myChart');
-
-    var myChart = new Chart(ctx, {
+    // Chart config
+    let ctx = $('#myChart');
+    let myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: eval('(' + dates + ')'),
