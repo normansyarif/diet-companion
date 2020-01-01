@@ -52,9 +52,9 @@
     	}else{
     		$('#overall').html('You do\'t have any improvement');
     	}
-    }else if(dataArr.length >= 1) {
-    	$('#overall').html('You are ' + parseFloat(dataArr[0].toFixed(1)) + ' kg');
-    	$('#now').remove();
+    }else if(dataArr.length == 1) {
+    	$('#now').html(parseFloat(dataArr[0].toFixed(1)) + ' kg');
+    	$('#overall').remove();
     }else{
     	$('#overall').remove();
     	$('#now').remove();
