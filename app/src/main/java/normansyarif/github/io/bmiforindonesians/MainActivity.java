@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -189,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String format(float number) {
-        return String.format("%.1f", number);
+        DecimalFormat df = new DecimalFormat("0.#");
+        return df.format(number);
     }
 
     private void saveHeightAndWeight(String height, String weight) {
@@ -269,12 +271,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.go_to_chart:
-                Intent intent = new Intent(MainActivity.this, ChartActivity.class);
-                startActivity(intent);
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.go_to_chart) {
+            Intent intent = new Intent(MainActivity.this, ChartActivity.class);
+            startActivity(intent);
         }
+        return super.onOptionsItemSelected(item);
     }
 }
