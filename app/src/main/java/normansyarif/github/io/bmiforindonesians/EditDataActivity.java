@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,9 +42,6 @@ public class EditDataActivity extends AppCompatActivity {
             editor.putString("dates", "[" + inputDates.getText().toString() + "]");
             editor.putString("data", "[" + inputData.getText().toString() + "]");
             editor.apply();
-
-            Intent intent = new Intent(EditDataActivity.this, ChartActivity.class);
-            startActivity(intent);
             finish();
         }else{
             Toast.makeText(this, "Wrong password", Toast.LENGTH_SHORT).show();
@@ -59,4 +56,5 @@ public class EditDataActivity extends AppCompatActivity {
     private String trimBrackets(String stringWithBrackets) {
         return stringWithBrackets.substring(1, stringWithBrackets.length() - 1);
     }
+
 }

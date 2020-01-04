@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -25,16 +26,19 @@ public class ChartActivity extends AppCompatActivity {
         relativeEdit = findViewById(R.id.relativeEdit);
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        initWebview();
-
         relativeEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChartActivity.this, EditDataActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initWebview();
     }
 
     private void initWebview() {
