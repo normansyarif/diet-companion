@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,26 +32,15 @@ public class EditDataActivity extends AppCompatActivity {
     private void parseData() {
         String dates = pref.getString("dates", "[]");
         String data = pref.getString("data", "[]");
-        inputDates.setText(dates);
-        inputData.setText(data);
+        inputDates.setText(trimBrackets(dates));
+        inputData.setText(trimBrackets(data));
     }
 
     public void onSaveClicked(View v) {
         if(inputPassword.getText().toString().equals("Hmiku")) {
-            String iDates = inputDates.getText().toString();
-            String iData = inputData.getText().toString();
-
-            if(iDates.equals("")) {
-                iDates = "[]";
-            }
-
-            if(iData.equals("")) {
-                iData = "[]";
-            }
-
             SharedPreferences.Editor editor = pref.edit();
-            editor.putString("dates", iDates);
-            editor.putString("data", iData);
+            editor.putString("dates", "[" + inputDates.getText().toString() + "]");
+            editor.putString("data", "[" + inputData.getText().toString() + "]");
             editor.apply();
 
             Intent intent = new Intent(EditDataActivity.this, ChartActivity.class);
@@ -62,7 +52,11 @@ public class EditDataActivity extends AppCompatActivity {
     }
 
     public void onClearClicked(View v) {
-        inputDates.setText(null);
-        inputData.setText(null);
+        inputDates.setText("");
+        inputData.setText("");
+    }
+
+    private String trimBrackets(String stringWithBrackets) {
+        return stringWithBrackets.substring(1, stringWithBrackets.length() - 1);
     }
 }
