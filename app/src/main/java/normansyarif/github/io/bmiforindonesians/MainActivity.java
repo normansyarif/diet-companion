@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -201,15 +202,20 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void onBtnClicked(View v) {
-        if(!inputHeight.getText().toString().equals("") && !inputWeight.getText().toString().equals("")) {
+    public void onCalculateClicked(View v) {
+        String height = inputHeight.getText().toString();
+        String weight = inputWeight.getText().toString();
+
+        if(!height.equals("") && !weight.equals("")) {
             calculate();
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy");
-            LocalDateTime now = LocalDateTime.now();
-            push( dtf.format(now), Float.parseFloat(inputWeight.getText().toString()));
+            if(v.getId() == R.id.save) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy");
+                LocalDateTime now = LocalDateTime.now();
+                push( dtf.format(now), Float.parseFloat(inputWeight.getText().toString()));
+                saveHeightAndWeight(height, weight);
+            }
 
-            saveHeightAndWeight(inputHeight.getText().toString(), inputWeight.getText().toString());
         }else{
             Toast.makeText(this, "Height and weight cannot be empty", Toast.LENGTH_SHORT).show();
         }

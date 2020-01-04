@@ -92,14 +92,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="#fff"
-            android:onClick="onBtnClicked"
-            android:text="Calculate"
+        <LinearLayout
             android:layout_gravity="center"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/calculate"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="#fff"
+                android:onClick="onCalculateClicked"
+                android:text="Just Calculate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/save"
+                android:backgroundTint="#1976D2"
+                android:textColor="#fff"
+                android:onClick="onCalculateClicked"
+                android:text="Calculate and save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textCaption1"
