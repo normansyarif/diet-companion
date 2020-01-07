@@ -1,11 +1,19 @@
 package normansyarif.github.io.bmiforindonesians;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -214,8 +222,13 @@ public class MainActivity extends AppCompatActivity {
             if(v.getId() == R.id.save) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy");
                 LocalDateTime now = LocalDateTime.now();
-                push( dtf.format(now), Float.parseFloat(inputWeight.getText().toString()));
+                push( dtf.format(now), Float.parseFloat(weight));
                 saveHeightAndWeight(height, weight);
+
+                String goal = pref.getString("goal", "0");
+                if(!goal.equals("0") && Float.parseFloat(weight) <= Float.parseFloat(goal)) {
+                    showNotification(goal);
+                }
             }
 
         }else{
@@ -253,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void push(String newDate, double newData) {
+    private void push(String newDate, float newData) {
         String dates = pref.getString("dates", "[]");
         String data = pref.getString("data", "[]");
 
@@ -269,6 +282,37 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("dates", dates);
         editor.putString("data", data);
         editor.apply();
+    }
+
+    private void showNotification(String goal) {
+        String NOTIFICATION_CHANNEL_ID = "channel_androidnotif";
+        Context context = this.getApplicationContext();
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String channelName = "Android Notif Channel";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            NotificationChannel mChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        Intent mIntent = new Intent(this, ChartActivity.class);
+        Bundle bundle = new Bundle();
+        mIntent.putExtras(bundle);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,NOTIFICATION_CHANNEL_ID);
+        builder.setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setAutoCancel(true)
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                .setLights(Color.RED, 3000, 3000)
+                .setDefaults(Notification.DEFAULT_SOUND)
+                .setContentTitle("Congratulations!")
+                .setContentText("You've reached " + goal + " kg. Keep up the good work!");
+
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(115, builder.build());
     }
 
     @Override

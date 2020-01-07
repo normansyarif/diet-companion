@@ -5,12 +5,13 @@ import android.webkit.JavascriptInterface;
 
 public class JavaScriptInterface {
     Context mContext;
-    String dates, data;
+    String dates, data, goal;
 
-    JavaScriptInterface(Context c, String dates, String data) {
+    JavaScriptInterface(Context c, String dates, String data, String goal) {
         this.mContext = c;
         this.dates = dates;
         this.data = data;
+        this.goal = goal;
     }
     @JavascriptInterface
     public String getDates() {
@@ -20,5 +21,10 @@ public class JavaScriptInterface {
     @JavascriptInterface
     public String getData() {
         return data;
+    }
+
+    @JavascriptInterface
+    public String getGoal() {
+        return goal;
     }
 }

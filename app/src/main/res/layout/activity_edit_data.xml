@@ -39,7 +39,7 @@
                 android:hint="Enter dates, each date should be put in between two quote marks and separated by comma. For example: &quot;01/01/20&quot;, &quot;02/01/20&quot;."
                 android:id="@+id/dates"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="130dp" />
 
             <EditText
                 android:gravity="top"
@@ -48,7 +48,17 @@
                 android:hint="Enter weight in kg, separated by comma. For example: 45, 50."
                 android:id="@+id/data"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="130dp" />
+
+            <EditText
+                android:inputType="numberDecimal"
+                android:gravity="top"
+                android:textSize="13sp"
+                android:layout_marginBottom="20dp"
+                android:hint="Enter your goal, leave empty or enter 0 to disable"
+                android:id="@+id/goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:gravity="top"

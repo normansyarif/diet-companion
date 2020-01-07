@@ -3,12 +3,13 @@
     <link rel="stylesheet" href="chart.css">
     <script src="jquery.js"></script>
     <script src="chart.js"></script>
+    <script src="annotation.js"></script>
 
     <style>
     	#now {
     		margin-top: 50px;
     		font-size: 1.6em;
-    		margin-bottom: 30px;
+    		margin-bottom: 20px;
     		text-align: center;
     	}
         #overall {
@@ -16,9 +17,9 @@
         }
         #compare {
         	text-align: center;
+            margin-bottom: 20px;
         }
         #best {
-        	margin-top: 30px;
         	text-align: center;
         }
         #best-value {
@@ -36,7 +37,8 @@
     <p id="now"></p>
     <p id="compare">
     	<span id="overall"></span><br />
-    	<span id="yesterday"></span>
+    	<span id="yesterday"></span><br />
+        <span id="target"></span>
     </p>
     <p id="best">
     	<span id="best-label"></span><br />
@@ -47,6 +49,7 @@
 <script type="text/javascript">
     let dates = Android.getDates();
     let data = Android.getData();
+    let target = Android.getGoal();
 
     let dataArr = eval('(' + data + ')');
 
@@ -100,7 +103,7 @@
     	let min = Math.min.apply(Math, dataArr);
     	if(dataArr[dataArr.length - 1] == min) {
     		$('#best').css('color', "#4CAF50");
-    		$('#best-label').html('Congratulation! You\'ve set a new best score:')
+    		$('#best-label').html('Congratulations! You\'ve set a new record:')
     	}else{
     		$('#best-label').html('Your best score:')
     	}
@@ -131,9 +134,33 @@
             },
             legend: {
     			display: false,
-			}
+			},
+            annotation: {
+                annotations: [{
+                    type: 'line',
+                    mode: 'horizontal',
+                    scaleID: 'y-axis-0',
+                    value: parseFloat(target),
+                    borderColor: '#1976D2',
+                    borderWidth: 1
+                }],
+            }
         }
     });
+
+    if(dataArr.length > 0) {
+        if(target == "0") {
+            myChart.options.annotation.annotations[0].type=null;
+            myChart.update();
+        }else{
+            if(dataArr[dataArr.length - 1] <= target) {
+                $('#target').html('You\'ve reached your goal (' + parseFloat(target) + ' kg)');
+                $('#target').css('color', "#4CAF50");
+            }else{
+                $('#target').html('You are ' + parseFloat((parseFloat(dataArr[dataArr.length - 1]) - parseFloat(target)).toFixed(1)) + ' kg away to reach your goal (' + parseFloat(target) + ' kg)' );
+            }
+        }
+    }
 
 </script>
 </body>

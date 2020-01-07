@@ -44,13 +44,14 @@ public class ChartActivity extends AppCompatActivity {
     private void initWebview() {
         String dates = pref.getString("dates", "[]");
         String data = pref.getString("data", "[]");
+        String goal = pref.getString("goal", "0");
 
         myBrowser = findViewById(R.id.webview);
         myBrowser.setWebChromeClient(new WebChromeClient() {});
         WebSettings settings = myBrowser.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        myBrowser.addJavascriptInterface(new JavaScriptInterface(this, dates, data), "Android");
+        myBrowser.addJavascriptInterface(new JavaScriptInterface(this, dates, data, goal), "Android");
         myBrowser.loadUrl("file:///android_asset/chart.html");
     }
 }
