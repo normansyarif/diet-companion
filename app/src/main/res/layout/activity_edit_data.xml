@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:textSize="12sp"
             android:textColor="#a9a9a9"
             android:text="Developed by Norman Syarif to help him lose some weight, which at this point seems very impossible."
             android:textAlignment="center"
