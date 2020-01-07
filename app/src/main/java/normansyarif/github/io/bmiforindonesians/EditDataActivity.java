@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class EditDataActivity extends AppCompatActivity {
 
     SharedPreferences pref;
@@ -51,6 +54,25 @@ public class EditDataActivity extends AppCompatActivity {
     public void onClearClicked(View v) {
         inputDates.setText("");
         inputData.setText("");
+    }
+
+    public void onShareClicked(View v) {
+        String dates = "[" + inputDates.getText().toString() + "]";
+        String weightData = "[" + inputData.getText().toString() + "]";
+
+        try{
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+            LocalDateTime now = LocalDateTime.now();
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Data from Diet Companion App");
+            String body = "Created at: " + dtf.format(now) + "\n\nDates:\n" + dates + "\n\nWeight data:\n" + weightData;
+            intent.putExtra(Intent.EXTRA_TEXT, body);
+            startActivity(Intent.createChooser(intent, "Share data"));
+        }catch(Exception e) {
+            Toast.makeText(this, "Hmm.. That's weird.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String trimBrackets(String stringWithBrackets) {
