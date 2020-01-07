@@ -23,10 +23,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     EditText inputHeight, inputWeight;
@@ -215,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Height and weight cannot be empty", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void launchHealth() {
@@ -246,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void push(String newDate, float newData) {
+    private void push(String newDate, double newData) {
         String dates = pref.getString("dates", "[]");
         String data = pref.getString("data", "[]");
 

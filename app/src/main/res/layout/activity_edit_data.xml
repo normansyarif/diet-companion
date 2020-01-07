@@ -36,7 +36,7 @@
                 android:gravity="top"
                 android:textSize="13sp"
                 android:layout_marginBottom="20dp"
-                android:hint="Enter dates, each date should be put between quote marks and separated by comma. For example: &quot;01/01/20&quot;, &quot;02/01/20&quot;."
+                android:hint="Enter dates, each date should be put in between two quote marks and separated by comma. For example: &quot;01/01/20&quot;, &quot;02/01/20&quot;."
                 android:id="@+id/dates"
                 android:layout_width="match_parent"
                 android:layout_height="150dp" />
