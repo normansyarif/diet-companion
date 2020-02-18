@@ -1,0 +1,35 @@
+<TaskerData sr="" dvi="1" tv="5.9.1">
+	<Profile sr="prof16" ve="2">
+		<cdate>1581009448597</cdate>
+		<clp>true</clp>
+		<edate>1581010424817</edate>
+		<flags>8</flags>
+		<id>16</id>
+		<mid0>14</mid0>
+		<nme>Event: NC, Breakfast Time</nme>
+		<Event sr="con0" ve="2">
+			<code>2000</code>
+			<pri>0</pri>
+			<App sr="arg0"/>
+			<Str sr="arg1" ve="3">Breakfast Time</Str>
+		</Event>
+	</Profile>
+	<Task sr="task14">
+		<cdate>1581009312426</cdate>
+		<edate>1581984131693</edate>
+		<id>14</id>
+		<nme>Launch MDC App</nme>
+		<pri>6</pri>
+		<Action sr="act0" ve="7">
+			<code>20</code>
+			<App sr="arg0">
+				<appClass>normansyarif.github.io.bmiforindonesians.MainActivity</appClass>
+				<appPkg>normansyarif.github.io.bmiforindonesians</appPkg>
+				<label>My Diet Companion</label>
+			</App>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+		</Action>
+	</Task>
+</TaskerData>
